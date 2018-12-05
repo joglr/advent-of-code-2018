@@ -5,15 +5,15 @@ const readFile = util.promisify(fs.readFile)
 const day = 1
 
 async function getResult() {
-  const inputContent = await readFile(`./${day}/input.txt`, { encoding: 'utf8' })
+  const inputContent = await readFile(`./${day}/input.txt`, {
+    encoding: 'utf8'
+  })
+
   const result = inputContent
     .split('\n')
-    .reduce((total, currentValue) => {
-      const parsedInt = parseInt(currentValue)
-      return currentValue.length && !isNaN(parsedInt)
-        ? total + parsedInt
-        : total
-    }, 0)
+    .map(x => parseInt(x))
+    .filter(x => !isNaN(x))
+    .reduce((total, currentValue) => total + currentValue, 0)
   return result
 }
 
